@@ -9,15 +9,18 @@ create table rental_place
 
 CREATE TABLE RENTAL_RESERVATION
 (
+res_num number,
+res_date   NUMBER,
+client_no  NUMBER constraint rental_client_client_no_fk references rental_client(client_no), -- "" 
   place_no   NUMBER CONSTRAINT rental_place_place_no_fk references rental_place(place_no)   , -- foreign 키로 바꿀 것.
-  client_no  NUMBER constraint rental_client_client_no_fk references rental_client(client_no), -- "" 
-  end_use    CHAR(2), --혹시 몰라서 --VARCHAR(2char) byte?
-  res_date   NUMBER,
-  res_num number
+  
+  end_use    CHAR(2) --혹시 몰라서 --VARCHAR(2char) byte?
+  
+  
     
 )
 ;
-
+drop table RENTAL_RESERVATION;
 CREATE TABLE RENTAL_MANAGER
 (
   MANAGER_NO NUMBER CONSTRAINT RENTAL_MANAGER_MANAGER_NO_PK PRIMARY KEY,
@@ -37,6 +40,14 @@ create table rental_client
   secession_fl char(1)
 );
 ------------만드는 거까지 함.
+insert into rental_manager
+values(1,'manager','tiger','01012345678'
+);
+insert into rental_manager
+(
+  manager_no
+)
+values(2);
 insert into rental_place
 values
 (
@@ -56,12 +67,53 @@ values
 insert into rental_place
 values
 (
-  2,2,'역삼 2호점',null
+  2,2,'역삼 2호점',2
 );
 insert into rental_place
 values
 (
-  3,2,'선릉 2호점',null
+  3,2,'선릉 2호점',2
 );
+---나름 순서가 있다고 해야하나.
+insert into rental_client
+(
+  client_no , CLIENT_NM
+)
+values
+( 
+  1,'박혁거세'
+);
+insert into rental_client
+(
+  client_no , CLIENT_NM
+)
+values
+( 
+  2,'단기방'
+);
+insert into rental_client
+(client_no , CLIENT_NM)
+values
+( 3,'레몬왕');
+insert into rental_client
+(client_no , CLIENT_NM)
+values
+( 4,'고래사어');
 
-
+----여기서부터 예약 초기값
+insert into RENTAL_RESERVATION
+values(1,14, 1,2,'N');
+insert into RENTAL_RESERVATION
+values(2,16, 1,5,'N');
+insert into RENTAL_RESERVATION
+values(3,12, 2,1,'N');
+insert into RENTAL_RESERVATION
+values(4,11, 3,2,'N');
+insert into RENTAL_RESERVATION
+values(5,13, 3,3,'N');
+insert into RENTAL_RESERVATION
+values(6,17, 4,5,'N');
+insert into RENTAL_RESERVATION
+values(7,21 ,4,1,'N');
+insert into RENTAL_RESERVATION
+values(8,15, 4,2,'N');
